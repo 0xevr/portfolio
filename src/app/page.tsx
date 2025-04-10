@@ -1,9 +1,9 @@
 // src/app/page.tsx
 
-"use client"; // Add this at the top for client-side features
-
+// Add this at the top for client-side features
+'use client'
 import { motion } from "framer-motion";
-import { ProjectCard } from "@/components/ui/ProjectCard";
+import  {ProjectCard}  from "@/components/ui/ProjectCard";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";

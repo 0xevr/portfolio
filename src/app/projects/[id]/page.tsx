@@ -1,10 +1,6 @@
-// src/app/projects/[id].tsx
-
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion"; // Import motion
-import { useParams } from "next/navigation";
+// src/app/projects/[id]/page.tsx
 import { notFound } from "next/navigation";
+import ProjectPageContent  from "./ProjectPageContent";
 
 interface ProjectData {
   title: string;
@@ -14,7 +10,6 @@ interface ProjectData {
   coffee: number;
   demoLink: string;
 }
-  
 
 const projectData = {
   "lms-website": {
@@ -55,47 +50,14 @@ export async function generateStaticParams() {
   return Object.keys(projectData).map((id) => ({ id }));
 }
 
-
 export default function ProjectPage({ params }: { params: { id: string } }) {
-
-  const project = projectData[params.id as keyof typeof projectData];
+  // Properly handle dynamic params
+  const projectId = params.id;
+  const project = projectData[projectId as keyof typeof projectData];
 
   if (!project) {
     notFound();
   }
 
-  return (
-    <motion.main
-      className="min-h-screen p-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <h1 className="text-center text-4xl font-bold mb-8 text-gray-900 dark:text-white">
-        {project.title}
-      </h1>
-      <div className="max-w-3xl mx-auto">
-        <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
-          {project.description}
-        </p>
-        <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
-          <strong>Challenges:</strong> {project.challenges}
-        </p>
-        <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
-          <strong>Age:</strong> {project.age}
-        </p>
-        <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
-          <strong>Cups of Coffee:</strong> {project.coffee}
-        </p>
-        <a
-          href={project.demoLink}
-          className="text-blue-500 hover:text-blue-700 transition-colors"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View Demo →
-        </a>    
-      </div>
-    </motion.main>
-  );
+  return <ProjectPageContent project={project} />;
 }

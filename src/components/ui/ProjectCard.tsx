@@ -1,17 +1,19 @@
 // src/components/ui/ProjectCard.tsx
-'use client';
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { FC } from "react";
 
-export const ProjectCard = ({
-  title,
-  description,
-  link,
-}: {
+interface ProjectCardProps {
   title: string;
   description: string;
   link: string;
+}
+
+export const ProjectCard: FC<ProjectCardProps> = ({
+  title,
+  description,
+  link,
 }) => {
   return (
     <motion.div
